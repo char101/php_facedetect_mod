@@ -1,0 +1,17 @@
+ARG_WITH("facedetect", "face detection", "no");
+
+if (PHP_FACEDETECT != "no") {
+	if (CHECK_LIB("opencv_core220.lib", "facedetect", PHP_FACEDETECT) &&
+		CHECK_LIB("opencv_objdetect220.lib", "facedetect", PHP_FACEDETECT) &&
+		CHECK_LIB("opencv_imgproc220.lib", "facedetect", PHP_FACEDETECT) &&
+		CHECK_LIB("opencv_highgui220.lib", "facedetect", PHP_FACEDETECT) &&
+		CHECK_HEADER_ADD_INCLUDE("opencv/cv.h", "CFLAGS_PHPDETECT", PHP_FACEDETECT) &&
+		CHECK_HEADER_ADD_INCLUDE("opencv/highgui.h", "CFLAGS_PHPDETECT", PHP_FACEDETECT)
+	) {
+		EXTENSION("facedetect", "facedetect.c");
+	} else {
+		WARNING("facedetect not enabled; OpenCV libraries or headers not found");
+	}
+}
+
+// vim: ft=javascript ts=4 sw=4:
